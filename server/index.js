@@ -12,10 +12,7 @@ const port = process.env.PORT || 5001;
 mongoose.set("useFindAndModify", false);
 
 mongoose
-  .connect("mongodb://206.81.23.37:27017/reaction", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect("mongodb://206.81.23.37:27017/reaction")
   .then(() => console.log(`Database connected successfully`))
   .catch((err) => console.log(err));
 
