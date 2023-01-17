@@ -3,9 +3,13 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const routes = require("./routes/api");
 const HttpError = require("./models/httpError");
+const path = require("path");
 require("dotenv").config();
 
 const app = express();
+
+app.use(express.static(path.join(__dirname, "../client", "build")));
+app.use(express.static("public"));
 
 const port = process.env.PORT || 5001;
 
@@ -30,6 +34,10 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 
 app.use("/api", routes);
+
+app.use((req, res, next) => {
+  res.sendFile(path.join(__dirname, "..", "build", "index.html"));
+});
 
 app.use((req, res, next) => {
   const error = new HttpError("Could not find this route.", 404);
