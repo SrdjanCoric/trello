@@ -9,14 +9,14 @@ require("dotenv").config();
 const app = express();
 
 app.use(express.static(path.join(__dirname, "../client", "build")));
-app.use(express.static("public"));
-
+// app.use(express.static("public"));
+// /var/www/html;
 const port = process.env.PORT || 5001;
 
 mongoose.set("useFindAndModify", false);
 
 mongoose
-  .connect("mongodb://206.81.23.37:27017/reaction")
+  .connect(process.env.DB)
   .then(() => console.log(`Database connected successfully`))
   .catch((err) => console.log(err));
 
@@ -36,7 +36,7 @@ app.use(bodyParser.json());
 app.use("/api", routes);
 
 app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, "..", "build", "index.html"));
+  res.sendFile(path.join(__dirname, "../client", "build", "index.html"));
 });
 
 app.use((req, res, next) => {
