@@ -10,13 +10,12 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, "../client", "build")));
 // app.use(express.static("public"));
-// /var/www/html;
 const port = process.env.PORT || 5001;
 
 mongoose.set("useFindAndModify", false);
 
 mongoose
-  .connect(process.env.DB)
+  .connect("mongodb://164.92.132.26:27017/reaction")
   .then(() => console.log(`Database connected successfully`))
   .catch((err) => console.log(err));
 
